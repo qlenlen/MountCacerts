@@ -44,7 +44,7 @@ jobs:
         run: |
           ZIPNAME=${{ github.event.repository.name }}-${{ env.version }}.zip
           echo zipname=$ZIPNAME >> $GITHUB_OUTPUT
-          zip -0qry ./$ZIPNAME * -x .github README.md
+          zip -9qry ./$ZIPNAME * -x .github README.md
 
       - name: Upload release
         uses: ncipollo/release-action@v1.14.0
