@@ -30,7 +30,6 @@ jobs:
       - name: Read Version
         run: |
           echo version=`grep '^version=' module.prop | cut -d= -f2` >> $GITHUB_ENV
-          rm README.md
 
       - name: Upload Release
         uses: actions/upload-artifact@v4
@@ -40,14 +39,12 @@ jobs:
             *
             !.*
 
-      - name: Download Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: artifacts
-
-      - name: Prepare
+      - name: Create module ZIP
+        id: zip
         run: |
-          find artifacts/ -name "*.zip" -exec cp {} ./ \;
+          ZIPNAME=${{ github.event.repository.name }}-${{ env.version }}.zip
+          echo zipname=$ZIPNAME >> $GITHUB_OUTPUT
+          zip -0qry ./$ZIPNAME * -x .github README.md
 
       - name: Upload release
         uses: ncipollo/release-action@v1.14.0
@@ -56,4 +53,4 @@ jobs:
           removeArtifacts: true
           name: ${{ github.event.repository.name }}-${{ env.version }}
           tag: ${{ github.event.repository.name }}-${{ env.version }}
-          artifacts: "artifacts/*.zip"
+          artifacts: ${{ github.event.repository.name }}-${{ env.version }}.zip
