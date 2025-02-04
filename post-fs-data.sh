@@ -22,18 +22,9 @@ if [ -d /apex/com.android.conscrypt/cacerts ]; then
 	tmp_cacerts_dir=$MODDIR/conscrypt_cacerts
 	mkdir -p $tmp_cacerts_dir
 	rm $tmp_cacerts_dir/*
+ 	cp -f /system/etc/security/cacerts/* $tmp_cacerts_dir/
 	cp -f /apex/com.android.conscrypt/cacerts/* $tmp_cacerts_dir/
 	cp -f /data/misc/user/0/cacerts-added/* $tmp_cacerts_dir/
 	set_perm_recursive $tmp_cacerts_dir root shell 755 644 u:object_r:system_security_cacerts_file:s0
 	mount --bind $tmp_cacerts_dir /apex/com.android.conscrypt/cacerts
-fi
-
-if [ -d /system/etc/security/cacerts ]; then
-	tmp_cacerts_dir=$MODDIR/etc_cacerts
-	mkdir -p $tmp_cacerts_dir
-	rm $tmp_cacerts_dir/*
-	cp -f /system/etc/security/cacerts/* $tmp_cacerts_dir/
-	cp -f /data/misc/user/0/cacerts-added/* $tmp_cacerts_dir/
-	set_perm_recursive $tmp_cacerts_dir root root 755 644 u:object_r:system_security_cacerts_file:s0
-	mount --bind $tmp_cacerts_dir /system/etc/security/cacerts
 fi
