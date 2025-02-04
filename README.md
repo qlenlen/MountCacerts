@@ -2,7 +2,7 @@
 A Magisk/KernelSU module to trust user-added certs
 
 ### Adding certificates
-Install the certificate as a user certificate and restart the device.
+This module mounts all user & system certs to /apex for A14+.
 
 ### Removing certificates
 Remove the certificate from the user store through the settings, and restart the device.

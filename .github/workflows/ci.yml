@@ -28,6 +28,7 @@ jobs:
       - name: Read Version
         run: |
           echo version=`grep '^version=' module.prop | cut -d= -f2` >> $GITHUB_ENV
+          rm README.md
 
       - name: Upload Release
         uses: actions/upload-artifact@v3

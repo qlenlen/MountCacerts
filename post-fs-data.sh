@@ -17,7 +17,6 @@ set_perm_recursive() {
   done
 }
 
-
 if [ -d /apex/com.android.conscrypt/cacerts ]; then
 	tmp_cacerts_dir=$MODDIR/conscrypt_cacerts
 	mkdir -p $tmp_cacerts_dir
